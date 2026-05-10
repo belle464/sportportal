@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>sportportal</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0F172A;
+    --purple: #7C3AED;
+    --purple-hover: #A855F7;
+    --gray-btn: #94A3B8;
+    --white: #FFFFFF;
+    --text-sub: #94A3B8;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg);
+    color: var(--white);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  /* PAGES */
+  .page {
+    display: none;
+    width: 100%;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    animation: fadeIn 0.4s ease;
+  }
+  .page.active { display: flex; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* CARD */
+  .card {
+    background: #1E293B;
+    border-radius: 24px;
+    padding: 56px 48px;
+    max-width: 480px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 10px 60px rgba(124, 58, 237, 0.25);
+    position: relative;
+  }
+
+  .icon-circle {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: var(--purple);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 28px;
+    font-size: 32px;
+  }
+
+  h1 {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .subtext {
+    font-size: 16px;
+    color: var(--text-sub);
+    margin-bottom: 40px;
+    line-height: 1.6;
+  }
+
+  /* BUTTONS */
+  .btn {
+    display: inline-block;
+    padding: 16px 40px;
+    border-radius: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.15s, box-shadow 0.15s, background 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,58,237,0.4); }
+  .btn:active { transform: translateY(0); }
+
+  .btn-primary {
+    background: var(--purple);
+    color: var(--white);
+    width: 100%;
+  }
+  .btn-primary:hover { background: var(--purple-hover); }
+
+  .btn-row {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+  }
+  .btn-yes {
+    background: var(--purple);
+    color: var(--white);
+    flex: 1;
+  }
+  .btn-no {
+    background: #374151;
+    color: var(--white);
+    flex: 1;
+  }
+  .btn-no:hover { background: #4B5563; box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+
+  .hint {
+    font-size: 13px;
+    color: #64748B;
+    margin-top: 18px;
+  }
+
+  /* PAGE 3 */
+  #page3 {
+    background: linear-gradient(135deg, #7C3AED 0%, #EC4899 100%);
+  }
+
+  .card-p3 {
+    background: rgba(0,0,0,0.25);
+    border-radius: 24px;
+    padding: 48px 40px;
+    max-width: 480px;
+    width: 90%;
+    text-align: center;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .congrats-label {
+    font-size: 18px;
+    font-weight: 600;
+    color: #FDE68A;
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+  }
+
+  .reach-text {
+    font-size: 15px;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 12px;
+  }
+
+  .big-text {
+    font-size: 72px;
+    font-weight: 900;
+    color: #FDE68A;
+    line-height: 1;
+    margin-bottom: 8px;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    animation: bounce 0.6s infinite alternate;
+  }
+
+  @keyframes bounce {
+    from { transform: scale(1); }
+    to   { transform: scale(1.04); }
+  }
+
+  .emoji-row {
+    font-size: 48px;
+    margin: 20px 0 32px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .btn-restart {
+    background: #0F172A;
+    color: var(--white);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .btn-restart:hover { background: #1E293B; box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
+
+  .spin { display: inline-block; animation: spin 1.5s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Confetti */
+  .confetti-piece {
+    position: fixed;
+    width: 10px; height: 10px;
+    border-radius: 2px;
+    opacity: 0;
+    animation: confettiFall 2.5s ease-in forwards;
+    pointer-events: none;
+  }
+  @keyframes confettiFall {
+    0%   { opacity: 1; transform: translateY(-20px) rotate(0deg); }
+    100% { opacity: 0; transform: translateY(100vh) rotate(720deg); }
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 -->
+<div class="page active" id="page1">
+  <div class="card">
+    <div class="icon-circle">⭐</div>
+    <h1>Important Announcement</h1>
+    <p class="subtext">You have been selected for a confidential process.</p>
+    <button class="btn btn-primary" onclick="goTo('page2')">Continue →</button>
+  </div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+  <div class="card">
+    <div class="icon-circle">🔒</div>
+    <h1>Security Verification</h1>
+    <p class="subtext">Before continuing, confirm emotional stability.</p>
+    <div class="btn-row">
+      <button class="btn btn-yes" onclick="goTo('page3')">YES</button>
+      <button class="btn btn-no" onclick="goTo('page3')">NO</button>
+    </div>
+    <p class="hint">( Both buttons go to next page 😉 )</p>
+  </div>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="page3">
+  <div class="card-p3">
+    <div class="congrats-label">🎉 CONGRATULATIONS! 🎉</div>
+    <p class="reach-text">You have officially reached:</p>
+    <div class="big-text">GAAND<br>MARVA<br><span style="color:#ff6b6b;font-size:60px;">CHUTIYA</span></div>
+    <div class="emoji-row">💀 💥 🤡 🫵</div>
+    <button class="btn btn-restart" onclick="restart()">
+      Restart Suffering <span class="spin">🔄</span>
+    </button>
+    <div style="margin-top:24px;font-size:32px;font-weight:900;color:#fff;letter-spacing:2px;animation:bounce 0.5s infinite alternate;">FUCK OFF 🃏</div>
+  </div>
+</div>
+
+<script>
+  function goTo(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(pageId).classList.add('active');
+    if (pageId === 'page3') launchConfetti();
+  }
+
+  function restart() {
+    goTo('page1');
+  }
+
+  function launchConfetti() {
+    const colors = ['#7C3AED','#EC4899','#FDE68A','#60A5FA','#34D399','#F87171'];
+    for (let i = 0; i < 60; i++) {
+      const el = document.createElement('div');
+      el.className = 'confetti-piece';
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.top = '-10px';
+      el.style.background = colors[Math.floor(Math.random() * colors.length)];
+      el.style.animationDelay = (Math.random() * 1.5) + 's';
+      el.style.width = (8 + Math.random() * 8) + 'px';
+      el.style.height = (8 + Math.random() * 8) + 'px';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 4000);
+    }
+  }
+</script>
+</body>
+</html>
